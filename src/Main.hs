@@ -2,9 +2,9 @@
 
 module Main where
 
-import Prelude hiding ((.), id)
+{-import Prelude hiding ((.), id)
 import Data.Label
-import Control.Category
+import Control.Category-}
 
 import Numeric.LinearAlgebra
 
@@ -23,11 +23,9 @@ import Spacecraft2D
 
 data AppConfig = AppConfig { screen :: Surface }
 
-data AppData = AppData { _fps        :: Timer
-                       , _spacecraft :: Spacecraft2D
+data AppData = AppData { fps        :: Timer
+                       , spacecraft :: Spacecraft2D
                        }
-
-$(mkLabels [''AppData])
 
 type AppEnv = ReaderT AppConfig (StateT AppData IO)
 

@@ -5,6 +5,12 @@ module Renderer ( rinit
 import Numeric.LinearAlgebra
 import Graphics.Rendering.OpenGL
 
+-- latest OpenGL in hackage is screwy
+import Unsafe.Coerce
+
+toVertex3 x y z = Vertex3 (unsafeCoerce x) (unsafeCoerce y) (unsafeCoerce z) :: Vertex3 GLdouble
+toVector3 x y z = Vector3 (unsafeCoerce x) (unsafeCoerce y) (unsafeCoerce z) :: Vector3 GLdouble
+
 rinit :: Integral a => a -> a -> IO ()
 rinit screenWidth screenHeight = do
     -- don't think these next three are strictly necessary
@@ -23,18 +29,18 @@ drawRectangle center w h o = do
         cmy = center @> 1
         halfWidth = w / 2
         halfHeight = h / 2
-        vUL = Vertex3 unsafeCoerce (-halfWidth) unsafeCoerce (-halfHeight) 0 :: Vertex3 GLdouble
-        vUR = Vertex3 halfWidth (-halfHeight) 0 :: Vertex3 GLdouble
-        vLR = Vertex3 halfWidth halfHeight 0 :: Vertex3 GLdouble
-        vLL = Vertex3 (-halfWidth) halfHeight 0 :: Vertex3 GLdouble
-        rot = rToD o
+        vUL = toVertex3 (-halfWidth) (-halfHeight) 0
+        vUR = toVertex3 halfWidth (-halfHeight) 0
+        vLR = toVertex3 halfWidth halfHeight 0
+        vLL = toVertex3 (-halfWidth) halfHeight 0
+        rot = unsafeCoerce (rToD o) :: GLdouble
         zaxis = Vector3 0 0 1
 
     matrixMode $= Modelview 0   -- why 0?
     loadIdentity
     
     clear [ColorBuffer]
-    translate $ (Vector3 cmx cmy 0 :: Vector3 GLdouble)
+    translate $ toVector3 cmx cmy 0
     rotate rot zaxis
     renderPrimitive Quads $ do
         color $ (Color3 1 0 0 :: Color3 GLdouble)
