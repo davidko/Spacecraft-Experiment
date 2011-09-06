@@ -1,0 +1,26 @@
+Install Prerequisites:
+
+$ sudo apt-get install libgsl0-dev liblapack-dev libatlas-base-dev \
+	libghc6-opengl-dev libghc6-sdl-dev
+$ cabal install hmatrix
+
+libgsl0-dev, liblapack-dev, libatlas-base-dev are required for hmatrix, which
+provides Numeric.LinearAlgebra
+
+libghc6-opengl-dev and libghc6-sdl-dev provide Graphics.Rendering.OpenGL
+and Graphics.UI.SDL
+
+
+Compile and Execute:
+
+$ ghc --make main.hs
+$ ./main
+
+
+Operating:
+
+Your "spaceship" is an ugly rectangle, red on the left, green on the right,
+like the lighting colors on an aircraft or boat. You have two thrusters, one
+attached on the left side, the other on the right, both of which provide
+forward thrust. The left arrow key activates the left thruster, the right arrow
+key activates the right thruster.
