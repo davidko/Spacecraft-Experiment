@@ -7,10 +7,21 @@ module Spacecraft2D ( Spacecraft2D(..)
                     ) where
 
 import RigidBodyDynamics
+import Renderer( Renderable(..)
+               , drawRectangle 
+               )
 import Numeric.LinearAlgebra
 
 data Spacecraft2D = Spacecraft2D { body           :: RigidBody
                                  } deriving (Show)
+
+instance Renderable Spacecraft2D where
+  render Spacecraft2D {body = b} = drawRectangle c w h o 
+   where
+      c = centerMass b
+      w = (width . shape) b
+      h = (height . shape) b
+      o = orientation b
 
 defaultSpacecraft2D = Spacecraft2D defaultRigidBody
 

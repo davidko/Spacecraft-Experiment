@@ -1,5 +1,6 @@
 module Renderer ( rinit
                 , drawRectangle
+                , Renderable(..)
                 ) where
 
 import Numeric.LinearAlgebra
@@ -7,6 +8,9 @@ import Graphics.Rendering.OpenGL
 
 -- latest OpenGL in hackage is screwy
 import Unsafe.Coerce
+
+class Renderable a where
+  render :: a -> IO()
 
 toVertex3 x y z = Vertex3 (unsafeCoerce x) (unsafeCoerce y) (unsafeCoerce z) :: Vertex3 GLdouble
 toVector3 x y z = Vector3 (unsafeCoerce x) (unsafeCoerce y) (unsafeCoerce z) :: Vector3 GLdouble
@@ -51,3 +55,5 @@ drawRectangle center w h o = do
         vertex vLR
  where
     rToD a = a * (180/pi)
+
+

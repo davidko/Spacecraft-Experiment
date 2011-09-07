@@ -107,11 +107,7 @@ loop = do
 
     -- render
     spacecraft <- getSpacecraft
-    let center = centerMass (body spacecraft)
-        w = (width . shape . body) spacecraft
-        h = (height . shape . body) spacecraft
-        o = orientation (body spacecraft)
-    liftIO $ Rend.drawRectangle center w h o
+    liftIO $ Rend.render spacecraft
     liftIO $ glSwapBuffers
     
     unless quit loop
