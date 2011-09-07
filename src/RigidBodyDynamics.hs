@@ -21,7 +21,12 @@ data Influence = Thruster { poa :: Vector Double -- point of application
 
 data Shape = Rectangle { width  :: Double
                        , height :: Double
-                       } deriving (Show)
+                       } 
+           | Circle    { radius :: Double
+                       } 
+           | Polygon   { points :: [Vector Double]
+                       }
+                       deriving (Show)
 
 defaultShape = Rectangle 40 10
 
